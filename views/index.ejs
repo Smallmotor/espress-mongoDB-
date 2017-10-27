@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    
+    <input type="button" id="Dout" value="退出登陆">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script>
+        $("#Dout").on("click",function(){
+            $.post("/users/Dout",function(data){
+              if(data.state==1){
+                alert("退出成功")
+                location.href="/users/login"
+              }else{
+                alert("退出失败")
+              }
+        })})
+    </script>
+  </body>
+</html>
