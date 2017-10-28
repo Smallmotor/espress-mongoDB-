@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
+
 var session = require('express-session')
+const MongoStore = require('connect-mongo')(session);
 
 
 
@@ -28,9 +30,12 @@ app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/blog', { useMongoClient: true });
+mongoose.Promise = global.Promise;
 app.use(session({
-  secret: 'blog'
+  secret: 'blog',
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
 

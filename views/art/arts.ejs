@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
-    <title>文章首页</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+      <link rel="icon" href="../../favicon.ico">
+      <title>文章列表</title>
+      <link href="/bootstrap.css" rel="stylesheet">
+      <link href="/stylesheets/users/logup.css" rel="stylesheet">
   </head>
+
   <body>
-1111111111111111111111111111111111111111
+
+      <div class="container">
+            <table class="table">
+                <tr>
+                    <td class="active"><h3>标题</h3></td>
+                    <td class="danger"><h3>作者</h3></td>
+                    <td class="info"><h3>操作</h3></td>
+                </tr>
+                <% for(var i=0;i<arts.length;i++){ %>
+                <tr>
+                    <td class="active"><%=arts[i].title%></td>
+                    <td class="danger">
+                            <%=arts[i].au%>
+                    </td>
+                    <td class="info">
+                        <button type="button" class="btn btn-success">
+                            <a href="/art/brow/<%=arts[i]._id%>">查看</a>
+                        </button>
+                        <button type="button" class="btn btn-info">
+                            <a href="/art/up/<%=arts[i]._id%>">修改</a>
+                        </button>
+                        <button type="button" class="btn btn-danger">删除</button>
+                    </td>
+                </tr>
+                <% } %>
+            </table>
+                  
+          
+      </div>
   </body>
 </html>
