@@ -8,6 +8,7 @@ var lessMiddleware = require('less-middleware');
 
 var session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
+var helpers = require('view-helpers')
 
 
 
@@ -38,7 +39,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-
+app.use(helpers('app name'))
 
 app.use('/', index);
 app.use('/users', users);

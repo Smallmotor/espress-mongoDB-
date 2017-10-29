@@ -5,11 +5,11 @@ var author = require("../common/author")
 var router = express.Router();
 
 /* GET home page. */
-router.get('/',function(req, res, next) {
+router.get('/',author.un,function(req, res, next) {
     if(req.session.user==undefined){
         res.render('index',{username:null});
     }else{
-        res.render('index', { username:req.session.user[0].name});
+        res.render('index',);
     }
     
  

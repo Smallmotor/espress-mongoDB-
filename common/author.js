@@ -6,4 +6,11 @@ function renzheng(req, res, next){
       }
 }
 
-module.exports=renzheng
+function un(req, res, next){
+    if(req.session.user){
+      res.locals.username=req.session.user[0].name;
+    }
+    next();
+}
+exports.renzheng=renzheng;
+exports.un=un;

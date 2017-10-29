@@ -5,17 +5,18 @@ var author = require("../common/author")
 var Art = require('../model/Art');
 
 
-router.use(author)
+router.use(author.renzheng)
+router.use(author.un)
 /* GET home page. */
 router.get('/', function(req, res, next) {
     
-    Art.find({username:req.session.user[0].name},function(err,data){
+    Art.find(function(err,data){
         res.render('art/arts',{arts:data});
     })
     
 });
 router.get('/rele', function(req, res, next) {
-    res.render('art/rele',{ username:req.session.user[0].name});
+    res.render('art/rele');
 });
 router.get("/up/:id",function(req, res, next){
     Art.findOne({_id:req.params.id},function(err,data){
@@ -60,14 +61,18 @@ router.post('/up',function(req,res,next){
         res.redirect("/art")
 
     })
-    
+})
+router.post('/del',function(req,res,next){
+    let id = req.body.id;
     Art.remove({_id:id},function(err){
-        if(err) console.log(err)
-        res.redirect("/art")
-
+        if(err){
+            res.json({status:-1})
+        }else{
+            res.json({status:1})
+            
+        }
     })
 })
-
 module.exports = router;
 
 
