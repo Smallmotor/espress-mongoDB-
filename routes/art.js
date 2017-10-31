@@ -1,9 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var author = require("../common/author")
+var fs = require("fs")
+let rd = require('rd');
+let path = require('path');
 
 var Art = require('../model/Art');
-
+let markdowner = require('markdown-it');
+var md = new markdowner({
+    html: true,
+    prefix: 'code-',
+});
 
 router.use(author.renzheng)
 router.use(author.un)
@@ -23,11 +30,19 @@ router.get("/up/:id",function(req, res, next){
         res.render("art/up",{art:data})
     })  
 })
+
 router.get("/brow/:id",function(req, res, next){
     Art.findOne({_id:req.params.id},function(err,data){
-        res.render("art/brow",{art:data})
-    })  
-})
+        var $data=data
+        var sd = data._id
+        fs.writeFile(sd+'.md',data.txt)
+        res.render("art/brow",{art:$data})  
+})})
+
+
+
+
+
 router.post('/rele',function(req, res, next){
     
     var datas = req.body;
@@ -73,6 +88,8 @@ router.post('/del',function(req,res,next){
         }
     })
 })
+
+
 module.exports = router;
 
 
